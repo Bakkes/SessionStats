@@ -15,7 +15,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "bakkesmod/plugin/bakkesmodplugin.h"
-#pragma comment( lib, "bakkesmod.lib" )
+#pragma comment( lib, "pluginsdk.lib" )
 #include <map> 
 #include <string>
 
