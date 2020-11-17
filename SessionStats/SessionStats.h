@@ -30,14 +30,16 @@ class SessionStatsPlugin : public BakkesMod::Plugin::BakkesModPlugin
 private:
 	std::map<int, StatsStruct> stats;
 	int currentPlaylist;
-	SteamID mySteamID;
+	UniqueIDWrapper myUniqueID;
+	std::unique_ptr<MMRNotifierToken> notifierToken;
 
 	//std::shared_ptr<bool> obsOut, screenOut; // write OBS text files, write stats on game canvas
 	//std::shared_ptr<std::string> obsDir;
 
 	void writeStats();
 	void logStatusToConsole(std::string oldValue, CVarWrapper cvar);
-	void updateStats(int retryCount);
+	void updateStats(UniqueIDWrapper id);
+	//void updateStats(int retryCount);
 	int teamNumber;
 public:
 	virtual void onLoad();
@@ -45,7 +47,7 @@ public:
 
 	void StartGame(std::string eventName);
 	void EndGame(std::string eventName);
-	void onMainMenu(std::string eventName);
+	
 	void Render(CanvasWrapper canvas);
 	void ResetStats();
 };
