@@ -45,7 +45,7 @@ void SessionStatsPlugin::onLoad() {
 	cvarManager->registerCvar("cl_sessionstats_display_toast", "0", "Display toast popup after a match", true, true, 0, true, 1, true);
 
 	// hook cvars
-	cvarManager->registerNotifier("cl_sessionstats_reset", [this](std::vector<string> params) {
+	cvarManager->registerNotifier("cl_sessionstats_reset", [this](std::vector<std::string> params) {
 		ResetStats();
 	}, "Start a fresh stats session", PERMISSION_ALL);
 	cvarManager->getCvar("cl_sessionstats_obs_output").addOnValueChanged(std::bind(&SessionStatsPlugin::logStatusToConsole, this, std::placeholders::_1, std::placeholders::_2));
@@ -90,7 +90,7 @@ void SessionStatsPlugin::StartGame(std::string eventName) {
 
 	if (!sw.IsNull() && sw.IsOnlineMultiplayer()) {
 		CarWrapper me = gameWrapper->GetLocalCar();
-		stringstream ss;
+		std::stringstream ss;
 
 		if (!me.IsNull()) {
 			teamNumber = me.GetTeamNum2();
@@ -225,7 +225,7 @@ void SessionStatsPlugin::updateStats(int retryCount) {
 						this->updateStats(retryCount - 1);
 					}, 0.5f);
 				else {
-					stringstream statstring;
+					std::stringstream statstring;
 					statstring << "Wins: " << stats[currentPlaylist].wins << " Losses: " << stats[currentPlaylist].losses << " Streak: " << stats[currentPlaylist].streak;
 					gameWrapper->Toast("SessionStats", statstring.str());
 				}
